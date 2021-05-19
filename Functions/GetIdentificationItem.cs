@@ -33,13 +33,9 @@ namespace SellCards.Functions {
             string _13 = (menorValor / 100 * 87).ToString("F2");
             string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
 
-
-
             if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
                 GetSellItem.Get(account, nome, valueFinish, assetid);
-            } else {
-                //Error
-            }
+            } 
         }
 
         public class Root {
