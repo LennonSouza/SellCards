@@ -14,6 +14,8 @@ namespace SellCards {
         public static int notMarketable = 0;
         public static bool normalCard = false;
         public static bool foilCard = false;
+        public static int anuncioFail = 0;
+        public static int countAnuncio = 1;
         public static List<string> appIDBlackList = new List<string>();
 
 
@@ -35,6 +37,7 @@ namespace SellCards {
             var counter = 0;
             foreach (var acc in allAccounts) {
                 try {
+                    countAnuncio = 1;
                     var accSpl = acc.Split(':');
                     login = accSpl[0].ToLower();
                     password = accSpl[1];

@@ -45,32 +45,24 @@ namespace SellCards.Functions {
                 int itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;
                 Logger.info($"Available items: {itemsMarketable}");
 
-                int counter = 0;
                 foreach (var item in invDeseralize.assets) {
 
                     var nome = invDeseralize.descriptions.Where(c => c.classid == item.classid).FirstOrDefault();
-                    if (string.IsNullOrWhiteSpace(nome.ToString())) {
-                        Logger.error($"item null!");
-                    } else {
+                    if (!string.IsNullOrWhiteSpace(nome.ToString())) {
                         if (nome.marketable == 1) {
 
-                            if (Program.appIDBlackList.Contains(nome.market_fee_app.ToString())) {
-                                Logger.error($"AppID na BlackList: {nome.market_fee_app} - NameCard: {nome.market_hash_name}");
-                                continue;
-                            }
+                            if (Program.appIDBlackList.Contains(nome.market_fee_app.ToString())) continue;
 
                             //Foil Card
                             if (nome.tags[2].internal_name == "cardborder_1" && Program.foilCard) {
 
-                                GetIdentificationItem.Get(account, nome);
+                                GetIdentificationItem.Get(account, nome, item.assetid); 
                             }
                             //Normal Card
                             if (nome.tags[2].internal_name == "cardborder_0" && Program.normalCard) {
 
-                                GetIdentificationItem.Get(account, nome);
+                                GetIdentificationItem.Get(account, nome, item.assetid);
                             }
-
-                            Logger.info(nome.market_hash_name);
                         }
                     }
                 }

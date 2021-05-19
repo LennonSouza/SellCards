@@ -12,8 +12,10 @@ namespace SellCards.Functions {
     class GetIdentificationItem {
 
 
-        public static void Get(SteamWebBotAccount account, Description nome) {
-            string URL = $"http://steamcommunity.com/market/priceoverview/?currency=34&appid=753&market_hash_name={nome.market_hash_name}";
+        public static void Get(SteamWebBotAccount account, Description nome, string assetid) {
+
+            string espaco = nome.market_hash_name.Replace(" ", "%20");
+            string URL = $"http://steamcommunity.com/market/priceoverview/?currency=34&appid=753&market_hash_name={espaco}";
 
             var responseItem = new RequestBuilder(URL).GET()
                 .AddPOSTParam("appid", "753")
@@ -24,13 +26,20 @@ namespace SellCards.Functions {
 
             Root marketDeseralize = JsonConvert.DeserializeObject<Root>(responseItem.Content);
 
-            string filter = String.Join("", Regex.Split(marketDeseralize.lowest_price, @"[^\d.,]"));
+            string filter = String.Join("", Regex.Split(marketDeseralize.lowest_price, @"[^\d,.]"));
             decimal menorValor = Convert.ToDecimal(filter);
 
+            //Valor a receber - 13%
+            string _13 = (menorValor / 100 * 87).ToString("F2");
+            string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
+
+
+
             if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
-
+                GetSellItem.Get(account, nome, valueFinish, assetid);
+            } else {
+                //Error
             }
-
         }
 
         public class Root {
