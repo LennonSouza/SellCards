@@ -59,6 +59,8 @@ namespace SellCards {
                     Logger.error($"Error: {e.ToString()}");
                 }
             }
+            Logger.info("All Done");
+            Console.ReadKey();
         }
     }
 }

@@ -162,7 +162,7 @@
             {
                 if (response == null || !response.Contains("<div>Nothing to confirm</div>"))
                 {
-                    throw new WGTokenInvalidException();
+                    //throw new WGTokenInvalidException();
                 }
 
                 return new Confirmation[0];
