@@ -52,8 +52,8 @@ namespace SellCards {
 
                     GetNumberItems.Get(account);
 
-                } catch (Exception) {
-                    //Exeption
+                } catch (Exception e) {
+                    Logger.error($"Error: {e.ToString()}");
                 }
             }
         }

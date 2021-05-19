@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SellCards.Functions {
     class GetNumberItems {
 
-        public static int Get(SteamWebBotAccount account) {
+        public static void Get(SteamWebBotAccount account) {
 
             TryAgain:
             string Referer = $"https://steamcommunity.com/inventory/{account.SteamGuard.Session.SteamID}/753/6?l=brazilian";
@@ -39,7 +39,6 @@ namespace SellCards.Functions {
                 //Se não houver items comercializavel
                 if (invDeseralize.assets == null || invDeseralize.assets.Count == Program.notMarketable) {
                     Logger.info("Standard items only!");
-                    return 0;
                 }
 
                 int itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;
@@ -67,8 +66,6 @@ namespace SellCards.Functions {
                     }
                 }
             }
-
-            return 0;
         }
 
         public class Asset {

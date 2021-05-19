@@ -58,6 +58,7 @@ namespace SellCards.Functions {
                 Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success").Replace("False", "Fail")} - {Program.countAnuncio}");
 
             }
+            Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }
 }
