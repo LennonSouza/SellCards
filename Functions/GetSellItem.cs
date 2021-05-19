@@ -55,7 +55,7 @@ namespace SellCards.Functions {
                 SteamAuth.Confirmation[] confirmations = account.SteamGuard.FetchConfirmations();
 
                 var responseTrade = account.SteamGuard.AcceptMultipleConfirmations(confirmations);
-                Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success").Replace("False", "Fail")} - {Program.countAnuncio}");
+                Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success").Replace("False", "Fail")} - {Program.countAnuncio++}");
 
             }
             Thread.Sleep(TimeSpan.FromSeconds(1));

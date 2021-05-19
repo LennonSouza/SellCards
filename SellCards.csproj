@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon>22211monkeyface_98805.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
