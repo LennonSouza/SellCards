@@ -11,16 +11,18 @@ namespace SellCards {
     class Program {
 
         public static string api_key = "";
-        public static int notMarketable = 0;
-        public static bool normalCard = false;
-        public static bool foilCard = false;
-        public static int anuncioFail = 0;
-        public static int countAnuncio = 1;
-        public static List<string> appIDBlackList = new List<string>();
-
-
         public static string login = "";
         public static string password = "";
+
+        public static int notMarketable = 0;
+        public static int anuncioFail = 0;
+        public static int countAnuncio = 1;
+
+        public static bool normalCard = false;
+        public static bool foilCard = false;
+        public static bool network = false;
+
+        public static List<string> appIDBlackList = new List<string>();
 
         public static Dictionary<string, MafileProcessingModel> allMafiles = MafilesProcessing.GetAllMafiles();
         public static string[] allAccounts = File.ReadAllLines(@"Config\Accs.txt");
@@ -32,6 +34,7 @@ namespace SellCards {
             notMarketable = config.Not_Marketable;
             normalCard = config.NormalCard;
             foilCard = config.FoilCard;
+            network = config.Network;
             appIDBlackList = config.AppIDBlackList;
 
             var counter = 0;

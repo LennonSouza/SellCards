@@ -10,6 +10,7 @@ namespace SellCards.SteamBot.Models {
         public int Not_Marketable { get; set; }
         public bool NormalCard { get; set; }
         public bool FoilCard { get; set; }
+        public bool Network { get; set; }
         public List<string> AppIDBlackList { get; set; }
     }
 }

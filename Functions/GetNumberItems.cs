@@ -55,12 +55,20 @@ namespace SellCards.Functions {
                             //Foil Card
                             if (nome.tags[2].internal_name == "cardborder_1" && Program.foilCard) {
 
-                                GetIdentificationItem.Get(account, nome, item.assetid); 
+                                if (Program.network) {
+                                    GetIdentificationItem.Get(account, nome, item.assetid);
+                                } else {
+                                    GetNumberItemsMemory.Get(account, nome, item.assetid);
+                                }
                             }
                             //Normal Card
                             if (nome.tags[2].internal_name == "cardborder_0" && Program.normalCard) {
 
-                                GetIdentificationItem.Get(account, nome, item.assetid);
+                                if (Program.network) {
+                                    GetIdentificationItem.Get(account, nome, item.assetid);
+                                } else {
+                                    GetNumberItemsMemory.Get(account, nome, item.assetid);
+                                }                                
                             }
                         }
                     }
