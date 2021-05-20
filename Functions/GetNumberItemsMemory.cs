@@ -12,7 +12,8 @@ namespace SellCards.Functions {
     class GetNumberItemsMemory {
         public static void Get(SteamWebBotAccount account, Description nome, string assetid) {
 
-            string URLtest = $"https://steamcommunity.com/market/listings/753/{nome.market_hash_name}";
+            string espaco = nome.market_hash_name.Replace(" ", "%20").Replace("?", "%3F");
+            string URLtest = $"https://steamcommunity.com/market/listings/753/{espaco}";
             var responseItemtest = new RequestBuilder(URLtest).GET()
                 .AddCookies(account.SteamGuard)
                 .Execute();

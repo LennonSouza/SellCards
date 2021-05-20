@@ -15,7 +15,7 @@ namespace SellCards.Functions {
 
         public static void Get(SteamWebBotAccount account, Description nome, string assetid) {
 
-            string espaco = nome.market_hash_name.Replace(" ", "%20");
+            string espaco = nome.market_hash_name.Replace(" ", "%20").Replace("?", "%3F");
             string URL = $"http://steamcommunity.com/market/priceoverview/?currency=34&appid=753&market_hash_name={espaco}";
 
             var responseItem = new RequestBuilder(URL).GET()

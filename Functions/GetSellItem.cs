@@ -8,7 +8,8 @@ using static SellCards.Functions.GetNumberItems;
 namespace SellCards.Functions {
     class GetSellItem {
         public static void Get(SteamWebBotAccount account, Description nome, string valueFinish, string assetid) {
-           
+
+            bool confirmation = false;
             var response = new RequestBuilder("https://steamcommunity.com/market/sellitem/")
                     .POST()
                     .AddHeader(HttpRequestHeader.Referer, $"https://steamcommunity.com/profiles/{account.SteamGuard.Session.SteamID}/inventory/")
@@ -21,7 +22,18 @@ namespace SellCards.Functions {
                     .AddCookies(account.SteamGuard)
                     .Execute();
 
-            bool confirmation = false;
+            if (response.Content.Contains("There was a problem listing your item. Refresh the page and try again")) {
+                Logger.error("Steam sucks: There was a problem listing your item!");
+                return;
+            }
+
+            if (response.Content.Contains("You already have a listing for this item pending confirmation. Please confirm or cancel the existing listing")) {
+                Logger.error("I will confirm your item!");
+                confirmation = true;
+                _2faConfirmation.Get(account, confirmation);
+                return;
+            }
+
             try {
                 JObject json = JObject.Parse(response.Content);
                 if (json.GetValue("success").Value<JValue>().Value is bool status && status == true) {
@@ -51,18 +63,7 @@ namespace SellCards.Functions {
                 Logger.error("Error reading Json");
             }
 
-            if (confirmation == true) {
-                SteamAuth.Confirmation[] confirmations = account.SteamGuard.FetchConfirmations();
-
-                var responseTrade = account.SteamGuard.AcceptMultipleConfirmations(confirmations);
-
-                if (responseTrade) {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success")} - {Program.countAnuncio++}");
-                } else {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("False", "Fail")} or AutoAccept - {Program.countAnuncio++}");
-                }
-            }
-            Thread.Sleep(TimeSpan.FromSeconds(1));
+            _2faConfirmation.Get(account, confirmation);
         }
     }
 }
