@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using RestSharp;
 using SteamAuth;
 
@@ -87,7 +88,21 @@ namespace SellCards {
 
         public IRestResponse Execute()
         {
+            TryAgain:
             var response = this.restClient.Execute(this.request);
+
+            if (response.StatusCode == HttpStatusCode.TooManyRequests) {
+                Logger.error($"Request Error: {response.StatusCode}, next try in 10 minutes!");
+                Thread.Sleep(TimeSpan.FromMinutes(10));
+                goto TryAgain;
+            }
+
+            if (response.StatusCode == HttpStatusCode.ServiceUnavailable) {
+                Logger.error($"Request Error: {response.StatusCode}, next try in 1 minute!");
+                Thread.Sleep(TimeSpan.FromMinutes(1));
+                goto TryAgain;
+            }
+
             return response;
         }
 

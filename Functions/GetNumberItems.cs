@@ -4,34 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SellCards.Functions {
     class GetNumberItems {
 
         public static void Get(SteamWebBotAccount account) {
 
-            TryAgain:
             string Referer = $"https://steamcommunity.com/inventory/{account.SteamGuard.Session.SteamID}/753/6?l=brazilian";
 
             var response = new RequestBuilder(Referer)
                 .GET()
                 .AddCookies(account.SteamGuard)
                 .Execute();
-
-            if (response.StatusCode == HttpStatusCode.TooManyRequests) {
-                Logger.info("Network blocked, next try in 10 minutes!");
-                Thread.Sleep(TimeSpan.FromMinutes(10));
-                goto TryAgain;
-            }
-
-            if (response.StatusCode == HttpStatusCode.ServiceUnavailable) {
-                Logger.info("Service unavailable, next try in 1 minute!");
-                Thread.Sleep(TimeSpan.FromMinutes(1));
-                goto TryAgain;
-            }
 
             if (response.IsSuccessful) {
                 Root invDeseralize = JsonConvert.DeserializeObject<Root>(response.Content);
