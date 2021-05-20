@@ -38,7 +38,8 @@ namespace SellCards.Functions {
 
                 //Se não houver items comercializavel
                 if (invDeseralize.assets == null || invDeseralize.assets.Count == Program.notMarketable) {
-                    Logger.info("Standard items only!");
+                    Logger.info("Empty inventory or non-marketable items!");
+                    return;
                 }
 
                 int itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;

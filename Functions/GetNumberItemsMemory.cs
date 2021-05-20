@@ -17,6 +17,11 @@ namespace SellCards.Functions {
                 .AddCookies(account.SteamGuard)
                 .Execute();
 
+            if (!responseItemtest.Content.Contains("ItemActivityTicker.Start(")) {
+                Logger.error("Error finding the codeID");
+                return;
+            }
+
             int inicio = responseItemtest.Content.IndexOf("ItemActivityTicker.Start(");
             int fim = responseItemtest.Content.IndexOf(");", inicio);
             string postid = responseItemtest.Content.Substring(inicio, fim - inicio);
