@@ -41,7 +41,7 @@ namespace SellCards.Functions {
             decimal menorValor = Convert.ToDecimal(price);
 
             //Valor a receber - 13%
-            string _13 = (menorValor / 100 * 87).ToString("F2");
+            string _13 = ((menorValor / 100 * 87) + 1).ToString("F2");
             string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
 
             if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
