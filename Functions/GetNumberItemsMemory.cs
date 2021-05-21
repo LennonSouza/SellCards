@@ -2,10 +2,7 @@
 using SteamBot.SteamWebBot.Account;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using static SellCards.Functions.GetNumberItems;
 
 namespace SellCards.Functions {
@@ -41,7 +38,7 @@ namespace SellCards.Functions {
             decimal menorValor = Convert.ToDecimal(price);
 
             //Valor a receber - 13%
-            string _13 = ((menorValor / 100 * 87) + 1).ToString("F2");
+            string _13 = ((menorValor / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2");
             string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
 
             if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
