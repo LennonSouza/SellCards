@@ -8,6 +8,7 @@ using System.Threading;
 
 namespace SellCards.Functions {
     class GetNumberItems {
+        public static int itemsMarketable = 0;
 
         public static void Get(SteamWebBotAccount account) {
 
@@ -27,7 +28,7 @@ namespace SellCards.Functions {
                     return;
                 }
 
-                int itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;
+                itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;
                 Logger.info($"Available items: {itemsMarketable}");
 
                 foreach (var item in invDeseralize.assets) {

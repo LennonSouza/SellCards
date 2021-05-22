@@ -21,6 +21,7 @@ namespace SellCards {
         public static bool normalCard = false;
         public static bool foilCard = false;
         public static bool network = false;
+        public static bool foilPrice = false;
 
         public static List<string> appIDBlackList = new List<string>();
 
@@ -36,6 +37,7 @@ namespace SellCards {
             foilCard = config.FoilCard;
             network = config.Network;
             appIDBlackList = config.AppIDBlackList;
+            foilPrice = config.FoilPrice;
 
             var counter = 0;
             foreach (var acc in allAccounts) {

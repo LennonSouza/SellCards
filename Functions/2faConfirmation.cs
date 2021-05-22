@@ -16,9 +16,9 @@ namespace SellCards.Functions {
                 var responseTrade = account.SteamGuard.AcceptMultipleConfirmations(confirmations);
 
                 if (responseTrade) {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success")} - {Program.countAnuncio++}");
+                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
                 } else {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("False", "Fail")} or AutoAccept - {Program.countAnuncio++}");
+                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("False", "Fail")} or AutoAccept - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
                 }
             }
             Thread.Sleep(TimeSpan.FromSeconds(1));

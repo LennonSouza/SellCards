@@ -8,6 +8,7 @@ namespace SellCards.SteamBot.Models {
     class Config {
         public string Api_Key { get; set; }
         public int Not_Marketable { get; set; }
+        public bool FoilPrice { get; set; }
         public bool NormalCard { get; set; }
         public bool FoilCard { get; set; }
         public bool Network { get; set; }
