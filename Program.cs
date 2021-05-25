@@ -95,6 +95,14 @@ namespace SellCards {
             {
                 File.WriteAllText(accsFilePath, "login:pass");
             }
+
+            string configfilepath = Path.Combine(configfolder,"Config.json");
+
+            if (!File.Exists(configfilepath))
+            {
+                Config config = new Config();
+                System.IO.File.WriteAllText(configfilepath, JsonConvert.SerializeObject(config, Formatting.Indented));
+            }
         }
     }
 }
