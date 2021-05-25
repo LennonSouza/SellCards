@@ -29,7 +29,7 @@ namespace SellCards.Functions {
             string _13 = ((menorValor / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2");
             string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
 
-            if (Program.foilPrice && nome.tags[2].internal_name == "cardborder_1") {
+            if (Program.config.FoilPrice && nome.tags[2].internal_name == "cardborder_1") {
                 menorValor = (menorValor / 100 * 87) - Convert.ToDecimal(0.02);
                 valueFinish = menorValor.ToString("F2");
                 valueFinish = String.Join("", Regex.Split(valueFinish, @"[^\d]"));

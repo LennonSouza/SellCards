@@ -11,21 +11,13 @@ namespace SellCards {
     class Program {
 
         public static string BasePath = AppDomain.CurrentDomain.BaseDirectory;
+        public static Config config = new Config();
 
-        public static string api_key = "";
         public static string login = "";
         public static string password = "";
 
-        public static int notMarketable = 0;
         public static int anuncioFail = 0;
         public static int countAnuncio = 1;
-
-        public static bool normalCard = false;
-        public static bool foilCard = false;
-        public static bool network = false;
-        public static bool foilPrice = false;
-
-        public static List<string> appIDBlackList = new List<string>();
 
         public static Dictionary<string, MafileProcessingModel> allMafiles = new Dictionary<string, MafileProcessingModel>();
         public static string[] allAccounts = null;
@@ -35,17 +27,9 @@ namespace SellCards {
             CheckDiretoryOnStartup();
             allMafiles =  MafilesProcessing.GetAllMafiles();
             allAccounts = File.ReadAllLines(@"Config\Accs.txt");
+            config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Config\Config.json"));
 
             Console.Title = $"SellCards -- AccountsLoad: {allAccounts.Length} -- MaFilesLoad: {allMafiles.Count}";
-
-            Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Config\Config.json"));
-            api_key = config.Api_Key;
-            notMarketable = config.Not_Marketable;
-            normalCard = config.NormalCard;
-            foilCard = config.FoilCard;
-            network = config.Network;
-            appIDBlackList = config.AppIDBlackList;
-            foilPrice = config.FoilPrice;
 
             var counter = 0;
             foreach (var acc in allAccounts) {

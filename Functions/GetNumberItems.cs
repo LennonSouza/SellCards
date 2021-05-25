@@ -23,12 +23,12 @@ namespace SellCards.Functions {
                 Root invDeseralize = JsonConvert.DeserializeObject<Root>(response.Content);
 
                 //Se não houver items comercializavel
-                if (invDeseralize.assets == null || invDeseralize.assets.Count == Program.notMarketable) {
+                if (invDeseralize.assets == null || invDeseralize.assets.Count == Program.config.Not_Marketable) {
                     Logger.info("Empty inventory or non-marketable items!");
                     return;
                 }
 
-                itemsMarketable = invDeseralize.total_inventory_count - Program.notMarketable;
+                itemsMarketable = invDeseralize.total_inventory_count - Program.config.Not_Marketable;
                 Logger.info($"Available items: {itemsMarketable}");
 
                 foreach (var item in invDeseralize.assets) {
@@ -37,21 +37,21 @@ namespace SellCards.Functions {
                     if (!string.IsNullOrWhiteSpace(nome.ToString())) {
                         if (nome.marketable == 1) {
 
-                            if (Program.appIDBlackList.Contains(nome.market_fee_app.ToString())) continue;
+                            if (Program.config.AppIDBlackList.Contains(nome.market_fee_app.ToString())) continue;
 
                             //Foil Card
-                            if (nome.tags[2].internal_name == "cardborder_1" && Program.foilCard) {
+                            if (nome.tags[2].internal_name == "cardborder_1" && Program.config.FoilCard) {
 
-                                if (Program.network) {
+                                if (Program.config.Network) {
                                     GetIdentificationItem.Get(account, nome, item.assetid);
                                 } else {
                                     GetNumberItemsMemory.Get(account, nome, item.assetid);
                                 }
                             }
                             //Normal Card
-                            if (nome.tags[2].internal_name == "cardborder_0" && Program.normalCard) {
+                            if (nome.tags[2].internal_name == "cardborder_0" && Program.config.NormalCard) {
 
-                                if (Program.network) {
+                                if (Program.config.Network) {
                                     GetIdentificationItem.Get(account, nome, item.assetid);
                                 } else {
                                     GetNumberItemsMemory.Get(account, nome, item.assetid);
