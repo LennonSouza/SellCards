@@ -10,6 +10,8 @@ using System.IO;
 namespace SellCards {
     class Program {
 
+        public static string BasePath = AppDomain.CurrentDomain.BaseDirectory;
+
         public static string api_key = "";
         public static string login = "";
         public static string password = "";
@@ -25,9 +27,15 @@ namespace SellCards {
 
         public static List<string> appIDBlackList = new List<string>();
 
-        public static Dictionary<string, MafileProcessingModel> allMafiles = MafilesProcessing.GetAllMafiles();
-        public static string[] allAccounts = File.ReadAllLines(@"Config\Accs.txt");
-        static void Main(string[] args) {
+        public static Dictionary<string, MafileProcessingModel> allMafiles = new Dictionary<string, MafileProcessingModel>();
+        public static string[] allAccounts = null;
+        static void Main(string[] args) 
+        {
+
+            CheckDiretoryOnStartup();
+            allMafiles =  MafilesProcessing.GetAllMafiles();
+            allAccounts = File.ReadAllLines(@"Config\Accs.txt");
+
             Console.Title = $"SellCards -- AccountsLoad: {allAccounts.Length} -- MaFilesLoad: {allMafiles.Count}";
 
             Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Config\Config.json"));
@@ -63,6 +71,30 @@ namespace SellCards {
             }
             Logger.info("All Done");
             Console.ReadKey();
+        }
+
+        public static void CheckDiretoryOnStartup()
+        {
+            string configfolder = Path.Combine(BasePath, "config");
+
+            if (!Directory.Exists(configfolder))
+            {
+                Directory.CreateDirectory(configfolder);
+            }
+
+            string mafilefolder = Path.Combine(configfolder, "mafiles");
+
+            if (!Directory.Exists(mafilefolder))
+            {
+                Directory.CreateDirectory(mafilefolder);
+            }
+
+            string accsFilePath = Path.Combine(configfolder, "accs.txt");
+
+            if (!File.Exists(accsFilePath))
+            {
+                File.WriteAllText(accsFilePath, "login:pass");
+            }
         }
     }
 }
