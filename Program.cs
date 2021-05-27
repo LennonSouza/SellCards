@@ -49,6 +49,8 @@ namespace SellCards {
 
                     GetNumberItems.Get(account);
 
+                    _2faConfirmation.Get(account, true);
+
                 } catch (Exception e) {
                     Logger.error($"Error: {e.ToString()}");
                 }
