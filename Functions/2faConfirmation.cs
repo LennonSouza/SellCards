@@ -12,14 +12,7 @@ namespace SellCards.Functions {
         public static void Get(SteamWebBotAccount account, bool confirmation) {
             if (confirmation == true) {
                 SteamAuth.Confirmation[] confirmations = account.SteamGuard.FetchConfirmations();
-
-                var responseTrade = account.SteamGuard.AcceptMultipleConfirmations(confirmations);
-
-                if (responseTrade) {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("True", "Success")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
-                } else {
-                    Logger.info($"Mobile Confirmation = {responseTrade.ToString().Replace("False", "Fail")} or AutoAccept - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
-                }
+                account.SteamGuard.AcceptMultipleConfirmations(confirmations);
             }
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
