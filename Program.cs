@@ -6,6 +6,7 @@ using SteamBot.SteamWebBot.Account;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace SellCards {
     class Program {
@@ -48,7 +49,7 @@ namespace SellCards {
                     var account = new SteamWebBotAccount(login, password, allMafiles[login]);
 
                     GetNumberItems.Get(account);
-
+                    Thread.Sleep(TimeSpan.FromSeconds(10));
                     _2faConfirmation.Get(account, true);
 
                 } catch (Exception e) {
