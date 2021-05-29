@@ -63,7 +63,14 @@ namespace SellCards.Functions {
                 Logger.error("Error reading Json");
             }
 
-            _2faConfirmation.Get(account, confirmation);
+            if (confirmation && Program.countAnuncio > Program.countConfirmation) {
+                _2faConfirmation.Get(account, confirmation);
+                Program.countConfirmation += 10;
+            }
+
+            if (confirmation && Program.countAnuncio == GetNumberItems.itemsMarketable) {
+                _2faConfirmation.Get(account, confirmation);
+            }
         }
     }
 }

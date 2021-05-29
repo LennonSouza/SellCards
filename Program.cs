@@ -18,7 +18,8 @@ namespace SellCards {
         public static string password = "";
 
         public static int anuncioFail = 0;
-        public static int countAnuncio = 1;
+        public static int countAnuncio = 0;
+        public static int countConfirmation = 0;
 
         public static Dictionary<string, MafileProcessingModel> allMafiles = new Dictionary<string, MafileProcessingModel>();
         public static string[] allAccounts = null;
@@ -36,6 +37,7 @@ namespace SellCards {
             foreach (var acc in allAccounts) {
                 try {
                     countAnuncio = 1;
+                    countConfirmation = 10;
                     var accSpl = acc.Split(':');
                     login = accSpl[0].ToLower();
                     password = accSpl[1];

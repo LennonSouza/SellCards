@@ -10,6 +10,9 @@ namespace SellCards.Functions {
     class _2faConfirmation {
 
         public static void Get(SteamWebBotAccount account, bool confirmation) {
+
+
+
             if (confirmation == true) {
                 SteamAuth.Confirmation[] confirmations = account.SteamGuard.FetchConfirmations();
                 account.SteamGuard.AcceptMultipleConfirmations(confirmations);
