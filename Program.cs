@@ -43,6 +43,7 @@ namespace SellCards {
                     password = accSpl[1];
 
                     Logger.info("Processing {0}. {1}/{2}", login, ++counter, allAccounts.Length);
+                    Console.Title = $"[{counter}/{allAccounts.Length}] -- SteamGameBuyStore -- AccountsLoad: {allAccounts.Length} -- MaFilesLoad: {allMafiles.Count}";
                     if (!allMafiles.ContainsKey(login)) {
                         Logger.error(login + " mafile not found");
                         continue;
