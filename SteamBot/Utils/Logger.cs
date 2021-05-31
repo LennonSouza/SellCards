@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 
-namespace SellCards {
+namespace SellCards
+{
 
     class Logger
     {
@@ -14,13 +15,6 @@ namespace SellCards {
 
             File.AppendAllText("log.txt", msg + "\n");
         }
-
-        public static void error(string format, params object[] args)
-        {
-            var msg = string.Format(format, args);
-            error(msg);
-        }
-
         public static void error(string msg, Exception e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -32,20 +26,14 @@ namespace SellCards {
             File.AppendAllText("error.txt", msg + "\n" + e.StackTrace + "\n");
         }
 
-        public static void info(string msg)
+        public static void info(string msg, ConsoleColor color = ConsoleColor.DarkCyan)
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = color;
             msg = DateTime.Now + " - " + msg;
             Console.WriteLine(msg);
             Console.ResetColor();
 
             File.AppendAllText("log.txt", msg + "\n");
-        }
-
-        public static void info(string format, params object[] args)
-        {
-            var msg = string.Format(format, args);
-            info(msg);
         }
     }
 }
