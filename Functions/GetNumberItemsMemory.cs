@@ -32,23 +32,28 @@ namespace SellCards.Functions {
 
             Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseItemtests.Content);
 
-            List<object> prices = myDeserializedClass.sell_order_graph[0];
+            if (myDeserializedClass == null) {
+                Logger.error("Error when checking the price of the item in the market!");
+            } else {
 
-            string price = prices[0].ToString();
-            decimal menorValor = Convert.ToDecimal(price);
+                List<object> prices = myDeserializedClass.sell_order_graph[0];
 
-            //Valor a receber - 13%
-            string _13 = ((menorValor / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2");
-            string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
+                string price = prices[0].ToString();
+                decimal menorValor = Convert.ToDecimal(price);
 
-            if (Program.config.FoilPrice && nome.tags[2].internal_name == "cardborder_1") {
-                menorValor = (menorValor / 100 * 87) - Convert.ToDecimal(0.02);
-                valueFinish = menorValor.ToString("F2");
-                valueFinish = String.Join("", Regex.Split(valueFinish, @"[^\d]"));
-            }
+                //Valor a receber - 13%
+                string _13 = ((menorValor / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2");
+                string valueFinish = String.Join("", Regex.Split(_13, @"[^\d]"));
 
-            if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
-                GetSellItem.Get(account, nome, valueFinish, assetid);
+                if (Program.config.FoilPrice && nome.tags[2].internal_name == "cardborder_1") {
+                    menorValor = (menorValor / 100 * 87) - Convert.ToDecimal(0.02);
+                    valueFinish = menorValor.ToString("F2");
+                    valueFinish = String.Join("", Regex.Split(valueFinish, @"[^\d]"));
+                }
+
+                if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
+                    GetSellItem.Get(account, nome, valueFinish, assetid);
+                }
             }
         }
 
