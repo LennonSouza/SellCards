@@ -7,7 +7,7 @@ using static SellCards.Functions.GetNumberItems;
 
 namespace SellCards.Functions {
     class GetSellItem {
-        public static void Get(SteamWebBotAccount account, string valueFinish, string assetid) {
+        public static void Get(SteamWebBotAccount account, Description nome, string valueFinish, string assetid) {
 
             bool confirmation = false;
             var response = new RequestBuilder("https://steamcommunity.com/market/sellitem/")
