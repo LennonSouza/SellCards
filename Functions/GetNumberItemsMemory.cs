@@ -7,6 +7,8 @@ using static SellCards.Functions.GetNumberItems;
 
 namespace SellCards.Functions {
     class GetNumberItemsMemory {
+
+        public static decimal menorValor = 0;
         public static void Get(SteamWebBotAccount account, Description nome, string assetid) {
 
             string espaco = nome.market_hash_name.Replace(" ", "%20").Replace("?", "%3F");
@@ -56,7 +58,7 @@ namespace SellCards.Functions {
                 }
 
                 string price = prices[0].ToString();
-                decimal menorValor = Convert.ToDecimal(price);
+                menorValor = Convert.ToDecimal(price);
 
                 //Valor a receber - 13%
                 string _13 = ((menorValor / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2");
