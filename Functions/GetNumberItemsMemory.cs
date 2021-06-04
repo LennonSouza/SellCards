@@ -31,6 +31,7 @@ namespace SellCards.Functions {
                 .Execute();
 
             Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseItemtests.Content);
+            List<object> prices = null;
 
             if (myDeserializedClass == null) {
                 Logger.error("Error when checking the price of the item in the market!");
@@ -38,11 +39,21 @@ namespace SellCards.Functions {
 
                 if (myDeserializedClass.sell_order_graph.Count == 0) {
 
-                    Logger.error("Card with no defined price"); //CAPPI OLHA AKI
-                    return;
+                    double value = 100.00;
+                    List<object> newObject = new List<object>();
+                    newObject.Add(value);
+
+                    Root r1 = new Root {
+                        sell_order_graph = new List<List<object>>()
+                    };
+                    r1.sell_order_graph.Add(newObject);
+
+                    prices = r1.sell_order_graph[0];
+
+                    Logger.error($"Card with no defined price, I set the value for you ARS$ {value}");
+                } else {
+                    prices = myDeserializedClass.sell_order_graph[0];
                 }
-                
-                List<object> prices = myDeserializedClass.sell_order_graph[0];
 
                 string price = prices[0].ToString();
                 decimal menorValor = Convert.ToDecimal(price);
