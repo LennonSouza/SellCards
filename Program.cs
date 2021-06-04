@@ -52,7 +52,11 @@ namespace SellCards {
                     var account = new SteamWebBotAccount(login, password, allMafiles[login]);
 
                     GetNumberItems.Get(account);
+
                     Thread.Sleep(TimeSpan.FromSeconds(10));
+                    _2faConfirmation.Get(account, true);
+
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
                     _2faConfirmation.Get(account, true);
 
                 } catch (Exception e) {
