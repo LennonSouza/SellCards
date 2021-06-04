@@ -7,7 +7,7 @@ using static SellCards.Functions.GetNumberItems;
 
 namespace SellCards.Functions {
     class GetSellItem {
-        public static void Get(SteamWebBotAccount account, Description nome, string valueFinish, string assetid) {
+        public static void Get(SteamWebBotAccount account, string valueFinish, string assetid) {
 
             bool confirmation = false;
             var response = new RequestBuilder("https://steamcommunity.com/market/sellitem/")
@@ -38,7 +38,11 @@ namespace SellCards.Functions {
                 JObject json = JObject.Parse(response.Content);
                 if (json.GetValue("success").Value<JValue>().Value is bool status && status == true) {
                     confirmation = true;
-                    Logger.info($"Ad created successfully! - ARS$ {GetNumberItemsMemory.menorValor.ToString("F2")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
+                    if (Program.config.FoilPrice) {
+                        Logger.info($"Ad created successfully! - ARS$ {GetNumberItemsMemory.menorValor.ToString("F2")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}", ConsoleColor.DarkGreen);
+                    } else {
+                        Logger.info($"Ad created successfully! - ARS$ {GetNumberItemsMemory.menorValor.ToString("F2")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
+                    }
                     Program.anuncioFail = 0;
                 } else if (json.GetValue("success").Value<JValue>().Value is bool statu && statu == false) {
                     Logger.info("Ad not created!");

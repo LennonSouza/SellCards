@@ -36,7 +36,7 @@ namespace SellCards.Functions {
             }
 
             if (menorValor > 0 && !string.IsNullOrWhiteSpace(menorValor.ToString())) {
-                GetSellItem.Get(account, nome, valueFinish, assetid);
+                GetSellItem.Get(account, valueFinish, assetid);
             } 
         }
 
