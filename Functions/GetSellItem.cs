@@ -38,7 +38,7 @@ namespace SellCards.Functions {
                 JObject json = JObject.Parse(response.Content);
                 if (json.GetValue("success").Value<JValue>().Value is bool status && status == true) {
                     confirmation = true;
-                    if (Program.config.FoilPrice) {
+                    if (nome.tags[2].internal_name == "cardborder_1") {
                         Logger.info($"Ad created successfully! - ARS$ {GetNumberItemsMemory.menorValor.ToString("F2")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}", ConsoleColor.DarkGreen);
                     } else {
                         Logger.info($"Ad created successfully! - ARS$ {GetNumberItemsMemory.menorValor.ToString("F2")} - {Program.countAnuncio++}/{GetNumberItems.itemsMarketable}");
