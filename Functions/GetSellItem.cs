@@ -65,7 +65,7 @@ namespace SellCards.Functions {
 
             if (confirmation && Program.countAnuncio > Program.countConfirmation) {
                 _2faConfirmation.Get(account, confirmation);
-                Program.countConfirmation += 10;
+                Program.countConfirmation += 5;
             }
 
             if (confirmation && Program.countAnuncio == GetNumberItems.itemsMarketable) {
