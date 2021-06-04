@@ -36,6 +36,12 @@ namespace SellCards.Functions {
                 Logger.error("Error when checking the price of the item in the market!");
             } else {
 
+                if (myDeserializedClass.sell_order_graph.Count == 0) {
+
+                    Logger.error("Card with no defined price"); //CAPPI OLHA AKI
+                    return;
+                }
+                
                 List<object> prices = myDeserializedClass.sell_order_graph[0];
 
                 string price = prices[0].ToString();
