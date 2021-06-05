@@ -75,6 +75,8 @@ namespace SellCards.Functions {
             if (confirmation && Program.countAnuncio == GetNumberItems.itemsMarketable) {
                 _2faConfirmation.Get(account, confirmation);
             }
+
+            Program.totalCards += GetNumberItemsMemory.menorValor;
         }
     }
 }

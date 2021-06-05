@@ -20,6 +20,7 @@ namespace SellCards {
         public static int anuncioFail = 0;
         public static int countAnuncio = 0;
         public static int countConfirmation = 0;
+        public static decimal totalCards = 0;
 
         public static Dictionary<string, MafileProcessingModel> allMafiles = new Dictionary<string, MafileProcessingModel>();
         public static string[] allAccounts = null;
@@ -59,6 +60,12 @@ namespace SellCards {
                     Thread.Sleep(TimeSpan.FromSeconds(5));
                     _2faConfirmation.Get(account, true);
 
+                    if (totalCards > 0) {
+                        Logger.info($"Total value: ARS$ {((totalCards / 100 * 87) + Convert.ToDecimal(0.01)).ToString("F2")}", ConsoleColor.DarkBlue);
+                    } else {
+                        Logger.info($"Total value: ARS$ {totalCards}", ConsoleColor.DarkBlue);
+                    }
+                    totalCards = 0;
                 } catch (Exception e) {
                     Logger.error($"Error: {e.ToString()}");
                 }
